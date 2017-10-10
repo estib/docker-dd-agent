@@ -5,7 +5,9 @@ This repository is meant to build the base image for a Datadog Agent container. 
 
 ## Logs-Agent Beta
 
-This branch of the docker-dd-agent will install the 5.17.3 version of the dd-agent that includes the Logs-Agent. In order to use it, take the following steps:
+This branch of the docker-dd-agent will install the 5.17.3 version of the dd-agent that includes the Logs-Agent. By default it is configured to set the logs-agent to listen to logs written over UDP to port 10518, although that is configurable to other ports and with TCP instead of UDP. 
+
+In order to use it, take the following steps:
 
 1. Download this repo/branch
 2. Configure your `conf.d/custom_logs.yaml` (docs [here](https://docs.datadoghq.com/logs/)) to include the log configurations you want (if you update the `port` value you must also overwrite 10518 with the new value in the run command below)
@@ -21,7 +23,6 @@ docker run -d --name dd-agent \
   -e DD_HOSTNAME={OPTIONAL_your_hostname_here_} \
   -e SD_BACKEND=docker \
   -p 8125:8125/udp \
-  -p 10516:10516/tcp \
   -p 10518:10518/udp \
   {image_from_build_output}
 
